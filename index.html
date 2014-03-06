@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dunlop QA Report</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/ng-table.min.js"></script>
+    <link href="css/ng-table.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js"></script>
+</head>
+<body ng-app="main">
+    <div ng-controller="DemoCtrl">
+        <p><strong>Page:</strong> {{qaTableParams.page()}}</p>
+        <p><strong>Count per page:</strong> {{qaTableParams.count()}}</p>
+        
+        <table ng-table="qaTableParams" show-filter="true" class="table">
+            <thead>
+            <tr>
+                <th ng-repeat="col in qaColumns" ng-show="col.visible"
+                class="text-center sortable" ng-class="{
+                    'sort-asc': qaTableParams.isSortBy(col.field, 'asc'),
+                    'sort-desc': qaTableParams.isSortBy(col.field, 'desc')
+                  }"
+                ng-click="qaTableParams.sorting(col.field, qaTableParams.isSortBy(col.field, 'asc') ? 'desc' : 'asc')">
+                {{col.title}}
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="e in $data">
+                <td ng-repeat="col in qaColumns" ng-show="col.visible" sortable="col.field">
+                    {{e[col.field]}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- <table ng-table="eventDataTableParams" class="table">
+            <tr ng-repeat="e in $data">
+                <td data-title="'Event Id'">{{e.EventId}}</td>
+                <td data-title="'Event Date'">{{e.EventDate  | date:'yyyy-MM-dd hh:mm:ssa'}}</td>
+                <td data-title="'Shift'">{{e.Shift}}</td>
+                <td data-title="'Event'">{{e.Event}}</td>
+                <td data-title="'Machine'">{{e.Machine}}</td>
+                <td data-title="'Tire Create Date'">{{e.TireCreateDate | date:'yyyy-MM-dd hh:mm:ssa'}}</td>
+                <td data-title="'Tire Serial Number'">{{e.TireSerialNumber}}</td>
+                <td data-title="'Green Tire Number'">{{e.GreenTireNumber}}</td>
+                <td data-title="'Goodyear Serial Number'">{{e.GoodyearSerialNumber}}</td>
+                <td data-title="'Operator'">{{e.Operator}}</td>
+                <td data-title="'Data Name'">{{e.DataName}}</td>
+                <td data-title="'Data Value'">{{e.DataValue}}</td>
+            </tr>
+        </table> -->
+    </div>
+
+
+</body>
+</html>
